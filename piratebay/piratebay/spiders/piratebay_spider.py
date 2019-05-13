@@ -2,7 +2,7 @@ from scrapy.spiders import BaseSpider
 from scrapy import Selector
 
 import urllib
-import urlparse
+import urllib.parse as parse
 
 from piratebay.items import UniversalItem
 
@@ -121,7 +121,7 @@ class BitSnoopSpider(BaseSpider):
 def url_fix(s, charset='utf-8'):
     if isinstance(s, unicode):
         s = s.encode(charset, 'ignore')
-    scheme, netloc, path, qs, anchor = urlparse.urlsplit(s)
-    path = urllib.quote(path, '/%')
-    qs = urllib.quote_plus(qs, ':&=')
-    return urlparse.urlunsplit((scheme, netloc, path, qs, anchor))
+    scheme, netloc, path, qs, anchor = parse.urlsplit(s)
+    path = parse.quote(path, '/%')
+    qs = parse.quote_plus(qs, ':&=')
+    return parse.urlunsplit((scheme, netloc, path, qs, anchor))
